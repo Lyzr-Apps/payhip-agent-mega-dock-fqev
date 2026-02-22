@@ -1,0 +1,64 @@
+{
+  "agent_name": "Store Publisher Agent",
+  "agent_id": "699ae0f692da22a75dd2719f",
+  "description": "Takes the approved product package and publishes it to the Payhip store via API \u2014 creates listing, uploads files, sets pricing, and activates the product",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "result": {
+      "publication_status": "string",
+      "product_title": "string",
+      "product_price": "number",
+      "product_description": "string",
+      "files_to_upload": [
+        {
+          "filename": "string",
+          "filetype": "string",
+          "size_estimate": "string"
+        }
+      ],
+      "category_tags": [
+        "string"
+      ],
+      "payhip_payload": {
+        "title": "string",
+        "description": "string",
+        "price": "string",
+        "currency": "string",
+        "product_type": "string",
+        "tags": "string"
+      },
+      "confirmation_message": "string",
+      "published_at": "string"
+    }
+  },
+  "example_response": {
+    "result": {
+      "publication_status": "Status of the publication attempt",
+      "product_title": "Title of the product being published",
+      "product_price": 0,
+      "product_description": "Product description for the listing",
+      "files_to_upload": [
+        {
+          "filename": "sample string",
+          "filetype": "sample string",
+          "size_estimate": "sample string"
+        }
+      ],
+      "category_tags": [
+        "sample string"
+      ],
+      "payhip_payload": {
+        "title": "sample string",
+        "description": "sample string",
+        "price": "sample string",
+        "currency": "sample string",
+        "product_type": "sample string",
+        "tags": "sample string"
+      },
+      "confirmation_message": "Confirmation message with publication details",
+      "published_at": "Timestamp of publication"
+    }
+  }
+}

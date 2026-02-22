@@ -1,0 +1,54 @@
+{
+  "agent_name": "Product Builder Agent",
+  "agent_id": "699ae0c791accf8e20f0cc4c",
+  "description": "Generates the actual digital product content - software tool code, utility scripts, templates, configuration files, and documentation",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "has_module_outputs": true,
+  "module_outputs_example": {
+    "artifact_files": [
+      {
+        "file_url": "https://example.com/file.pdf"
+      }
+    ]
+  },
+  "response_schema": {
+    "result": {
+      "product_name": "string",
+      "product_type": "string",
+      "tech_stack": ["string"],
+      "files": [
+        {
+          "filename": "string",
+          "filetype": "string",
+          "description": "string",
+          "content": "string"
+        }
+      ],
+      "readme_content": "string",
+      "setup_instructions": "string",
+      "file_count": "number",
+      "product_summary": "string"
+    }
+  },
+  "example_response": {
+    "result": {
+      "product_name": "Name of the digital product",
+      "product_type": "Type of digital product",
+      "tech_stack": ["sample string"],
+      "files": [
+        {
+          "filename": "sample string",
+          "filetype": "sample string",
+          "description": "sample string",
+          "content": "sample string"
+        }
+      ],
+      "readme_content": "README file content",
+      "setup_instructions": "Setup and installation instructions",
+      "file_count": 0,
+      "product_summary": "Summary of the product"
+    }
+  }
+}

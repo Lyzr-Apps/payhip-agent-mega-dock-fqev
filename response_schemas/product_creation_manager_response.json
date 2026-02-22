@@ -1,0 +1,86 @@
+{
+  "agent_name": "Product Creation Manager",
+  "agent_id": "699ae0e021096e9c61f06fb8",
+  "description": "Coordinates research, content generation, and listing creation sub-agents; aggregates a complete product package for review",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "result": {
+      "product_package": {
+        "product_name": "string",
+        "product_type": "string",
+        "market_research": {
+          "demand_score": "number",
+          "demand_analysis": "string",
+          "competitors": "string",
+          "pricing_benchmark": "string",
+          "target_audience": "string",
+          "positioning_opportunities": "string",
+          "market_summary": "string",
+          "viability_rating": "string"
+        },
+        "product_content": {
+          "tech_stack": "string",
+          "files": "string",
+          "readme_content": "string",
+          "setup_instructions": "string",
+          "file_count": "number",
+          "product_summary": "string"
+        },
+        "listing": {
+          "title": "string",
+          "tagline": "string",
+          "description": "string",
+          "feature_bullets": "string",
+          "recommended_price": "number",
+          "price_justification": "string",
+          "category_tags": "string",
+          "call_to_action": "string",
+          "seo_keywords": "string"
+        },
+        "status": "string",
+        "created_at": "string"
+      }
+    }
+  },
+  "example_response": {
+    "result": {
+      "product_package": {
+        "product_name": "Name of the product",
+        "product_type": "Type of digital product",
+        "market_research": {
+          "demand_score": 0,
+          "demand_analysis": "sample string",
+          "competitors": "sample string",
+          "pricing_benchmark": "sample string",
+          "target_audience": "sample string",
+          "positioning_opportunities": "sample string",
+          "market_summary": "sample string",
+          "viability_rating": "sample string"
+        },
+        "product_content": {
+          "tech_stack": "sample string",
+          "files": "sample string",
+          "readme_content": "sample string",
+          "setup_instructions": "sample string",
+          "file_count": 0,
+          "product_summary": "sample string"
+        },
+        "listing": {
+          "title": "sample string",
+          "tagline": "sample string",
+          "description": "sample string",
+          "feature_bullets": "sample string",
+          "recommended_price": 0,
+          "price_justification": "sample string",
+          "category_tags": "sample string",
+          "call_to_action": "sample string",
+          "seo_keywords": "sample string"
+        },
+        "status": "sample string",
+        "created_at": "sample string"
+      }
+    }
+  }
+}

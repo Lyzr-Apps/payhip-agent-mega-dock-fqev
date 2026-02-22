@@ -1,0 +1,68 @@
+{
+  "workflow_name": "RULE 47 Digital Product Factory",
+  "status": "agents_created",
+  "created_at": "2026-02-22",
+  "agent_ids": {
+    "market_research_agent": "699ae0c791accf8e20f0cc4a",
+    "product_builder_agent": "699ae0c791accf8e20f0cc4c",
+    "listing_copywriter_agent": "699ae0c721096e9c61f06fb1",
+    "product_creation_manager": "699ae0e021096e9c61f06fb8",
+    "store_publisher_agent": "699ae0f692da22a75dd2719f"
+  },
+  "manager_agent_id": "699ae0e021096e9c61f06fb8",
+  "managed_agents": [
+    "699ae0c791accf8e20f0cc4a",
+    "699ae0c791accf8e20f0cc4c",
+    "699ae0c721096e9c61f06fb1"
+  ],
+  "response_schemas": {
+    "market_research_agent": "response_schemas/market_research_agent_response.json",
+    "product_builder_agent": "response_schemas/product_builder_agent_response.json",
+    "listing_copywriter_agent": "response_schemas/listing_copywriter_agent_response.json",
+    "product_creation_manager": "response_schemas/product_creation_manager_response.json",
+    "store_publisher_agent": "response_schemas/store_publisher_agent_response.json"
+  },
+  "agents_summary": [
+    {
+      "name": "Market Research Agent",
+      "id": "699ae0c791accf8e20f0cc4a",
+      "role": "sub-agent",
+      "provider": "perplexity",
+      "model": "sonar-pro",
+      "capabilities": ["web_search_builtin"]
+    },
+    {
+      "name": "Product Builder Agent",
+      "id": "699ae0c791accf8e20f0cc4c",
+      "role": "sub-agent",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "capabilities": ["file_output"]
+    },
+    {
+      "name": "Listing Copywriter Agent",
+      "id": "699ae0c721096e9c61f06fb1",
+      "role": "sub-agent",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "capabilities": ["text_output"]
+    },
+    {
+      "name": "Product Creation Manager",
+      "id": "699ae0e021096e9c61f06fb8",
+      "role": "manager",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "capabilities": ["orchestration"],
+      "manages": ["699ae0c791accf8e20f0cc4a", "699ae0c791accf8e20f0cc4c", "699ae0c721096e9c61f06fb1"]
+    },
+    {
+      "name": "Store Publisher Agent",
+      "id": "699ae0f692da22a75dd2719f",
+      "role": "independent",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "capabilities": ["text_output"]
+    }
+  ]
+}

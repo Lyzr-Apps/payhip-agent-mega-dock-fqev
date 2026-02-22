@@ -1,0 +1,96 @@
+{
+  "workflow_name": "RULE 47 Digital Product Factory",
+  "description": "End-to-end digital product creation pipeline: market research, product building, listing copywriting, and store publishing",
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "Product Idea Input",
+      "nodeCategory": "input"
+    },
+    {
+      "id": "manager_agent",
+      "type": "Agent",
+      "label": "Product Creation Manager",
+      "nodeCategory": "agent",
+      "agent_id": "699ae0e021096e9c61f06fb8",
+      "agent_name": "Product Creation Manager",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "temperature": 0.3,
+      "top_p": 1,
+      "is_manager": true,
+      "managed_agents": [
+        "699ae0c791accf8e20f0cc4a",
+        "699ae0c791accf8e20f0cc4c",
+        "699ae0c721096e9c61f06fb1"
+      ]
+    },
+    {
+      "id": "research_agent",
+      "type": "Agent",
+      "label": "Market Research Agent",
+      "nodeCategory": "agent",
+      "agent_id": "699ae0c791accf8e20f0cc4a",
+      "agent_name": "Market Research Agent",
+      "provider": "perplexity",
+      "model": "sonar-pro",
+      "temperature": 0.2,
+      "top_p": 1,
+      "is_sub_agent": true
+    },
+    {
+      "id": "builder_agent",
+      "type": "Agent",
+      "label": "Product Builder Agent",
+      "nodeCategory": "agent",
+      "agent_id": "699ae0c791accf8e20f0cc4c",
+      "agent_name": "Product Builder Agent",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "file_output": true,
+      "is_sub_agent": true
+    },
+    {
+      "id": "copywriter_agent",
+      "type": "Agent",
+      "label": "Listing Copywriter Agent",
+      "nodeCategory": "agent",
+      "agent_id": "699ae0c721096e9c61f06fb1",
+      "agent_name": "Listing Copywriter Agent",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "temperature": 0.7,
+      "top_p": 0.95,
+      "is_sub_agent": true
+    },
+    {
+      "id": "publisher_agent",
+      "type": "Agent",
+      "label": "Store Publisher Agent",
+      "nodeCategory": "agent",
+      "agent_id": "699ae0f692da22a75dd2719f",
+      "agent_name": "Store Publisher Agent",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "temperature": 0.2,
+      "top_p": 1
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "Published Product",
+      "nodeCategory": "end"
+    }
+  ],
+  "edges": [
+    {"source": "input_node", "target": "manager_agent"},
+    {"source": "manager_agent", "target": "research_agent"},
+    {"source": "manager_agent", "target": "builder_agent"},
+    {"source": "manager_agent", "target": "copywriter_agent"},
+    {"source": "manager_agent", "target": "publisher_agent"},
+    {"source": "publisher_agent", "target": "output_node"}
+  ]
+}

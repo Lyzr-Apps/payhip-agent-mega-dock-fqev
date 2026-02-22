@@ -1,0 +1,34 @@
+{
+  "agent_name": "Listing Copywriter Agent",
+  "agent_id": "699ae0c721096e9c61f06fb1",
+  "description": "Crafts optimized product title, compelling description, feature bullet points, pricing recommendation, and category tags for the Payhip listing",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "result": {
+      "title": "string",
+      "tagline": "string",
+      "description": "string",
+      "feature_bullets": ["string"],
+      "recommended_price": "number",
+      "price_justification": "string",
+      "category_tags": ["string"],
+      "call_to_action": "string",
+      "seo_keywords": ["string"]
+    }
+  },
+  "example_response": {
+    "result": {
+      "title": "SEO-friendly product title (max 80 chars)",
+      "tagline": "Short tagline/subtitle (max 120 chars)",
+      "description": "Detailed product description (200-400 words)",
+      "feature_bullets": ["sample string"],
+      "recommended_price": 0,
+      "price_justification": "Justification for the recommended price",
+      "category_tags": ["sample string"],
+      "call_to_action": "Compelling call-to-action phrase",
+      "seo_keywords": ["sample string"]
+    }
+  }
+}

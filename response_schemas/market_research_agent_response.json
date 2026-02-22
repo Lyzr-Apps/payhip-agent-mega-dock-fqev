@@ -1,0 +1,54 @@
+{
+  "agent_name": "Market Research Agent",
+  "agent_id": "699ae0c791accf8e20f0cc4a",
+  "description": "Researches market demand, competitor products, pricing benchmarks, and identifies product positioning opportunities for digital products",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "result": {
+      "demand_score": "number",
+      "demand_analysis": "string",
+      "competitors": [
+        {
+          "name": "string",
+          "price": "string",
+          "strengths": "string",
+          "weaknesses": "string"
+        }
+      ],
+      "pricing_benchmark": {
+        "min": "number",
+        "max": "number",
+        "recommended": "number"
+      },
+      "target_audience": "string",
+      "positioning_opportunities": "string",
+      "market_summary": "string",
+      "viability_rating": "string"
+    }
+  },
+  "example_response": {
+    "result": {
+      "demand_score": 0,
+      "demand_analysis": "Detailed analysis of market demand",
+      "competitors": [
+        {
+          "name": "sample string",
+          "price": "sample string",
+          "strengths": "sample string",
+          "weaknesses": "sample string"
+        }
+      ],
+      "pricing_benchmark": {
+        "min": 0,
+        "max": 0,
+        "recommended": 0
+      },
+      "target_audience": "Description of the target audience",
+      "positioning_opportunities": "Unique positioning angles",
+      "market_summary": "Overall market summary",
+      "viability_rating": "Overall viability rating"
+    }
+  }
+}
