@@ -626,15 +626,17 @@ Please coordinate market research, product building, and listing creation.`
     const files = safeParse(currentPackage?.product_content?.files, [])
     const fileNames = Array.isArray(files) ? files.map((f: any) => typeof f === 'string' ? f : f?.filename || f?.name || 'file').slice(0, 10) : []
 
-    const message = `Publish this approved product to Payhip:
+    const message = `Publish this approved product to the RULE 47 Payhip store (https://payhip.com/RULE47):
 Title: ${editedTitle}
+Tagline: ${editedTagline}
 Description: ${editedDescription}
 Price: $${editedPrice}
 Features: ${JSON.stringify(editedBullets)}
 Tags: ${JSON.stringify(editedTags)}
 Files: ${JSON.stringify(fileNames)}
+Product Type: ${currentPackage.product_type}
 
-Please process this publication.`
+Format for Payhip digital download listing and publish to the RULE 47 store.`
 
     try {
       const result = await callAIAgent(message, PUBLISHER_AGENT_ID)
@@ -778,6 +780,21 @@ Please process this publication.`
         {/* Bottom section */}
         <div className="p-4 space-y-3">
           <AgentStatusCard activeAgentId={activeAgentId} />
+
+          {/* Store connection */}
+          <a
+            href="https://payhip.com/RULE47"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 p-3 rounded-lg bg-green-50 border border-green-200 hover:bg-green-100 transition-colors"
+          >
+            <div className="w-2 h-2 rounded-full bg-green-500 shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-medium text-green-700">RULE 47 Store</p>
+              <p className="text-[10px] text-green-600 truncate">payhip.com/RULE47</p>
+            </div>
+            <FiExternalLink className="w-3 h-3 text-green-600 shrink-0" />
+          </a>
 
           {/* Sample data toggle */}
           <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
@@ -1778,80 +1795,130 @@ Please process this publication.`
 
         {/* Publish Success Dialog */}
         <Dialog open={showPublishDialog} onOpenChange={setShowPublishDialog}>
-          <DialogContent className="sm:max-w-md">
+          <DialogContent className="sm:max-w-lg">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2 text-green-600">
-                <FiCheck className="w-5 h-5" /> Published Successfully
+                <FiCheck className="w-5 h-5" /> Product Published to RULE 47
               </DialogTitle>
               <DialogDescription>
-                Your product has been published to Payhip.
+                Your product has been prepared for your Payhip store at payhip.com/RULE47.
               </DialogDescription>
             </DialogHeader>
-            <div className="space-y-3 py-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Title</span>
-                <span className="font-medium text-foreground">{publishResult?.product_title || editedTitle}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Price</span>
-                <span className="font-medium text-foreground">${publishResult?.product_price ?? editedPrice}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Status</span>
-                <Badge className="bg-green-100 text-green-700 border-green-200 hover:bg-green-100">{publishResult?.publication_status || 'Published'}</Badge>
-              </div>
-              {publishResult?.confirmation_message && (
-                <div className="p-3 rounded-lg bg-green-50 border border-green-200 text-sm text-green-700">
-                  {publishResult.confirmation_message}
-                </div>
-              )}
-              {publishResult?.published_at && (
+            <ScrollArea className="max-h-[60vh]">
+              <div className="space-y-3 py-2 pr-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Published At</span>
-                  <span className="text-xs text-muted-foreground">{publishResult.published_at}</span>
+                  <span className="text-muted-foreground">Title</span>
+                  <span className="font-medium text-foreground text-right max-w-[250px]">{publishResult?.product_title || editedTitle}</span>
                 </div>
-              )}
-
-              {/* Payhip Payload details */}
-              {publishResult?.payhip_payload && (
-                <div className="mt-2 p-3 rounded-lg bg-secondary/50 border">
-                  <p className="text-xs font-medium text-muted-foreground mb-2">Payhip Payload</p>
-                  {Object.entries(publishResult.payhip_payload).map(([key, val]) => (
-                    <div key={key} className="flex justify-between text-xs py-0.5">
-                      <span className="text-muted-foreground capitalize">{key.replace(/_/g, ' ')}</span>
-                      <span className="font-medium text-foreground truncate max-w-[200px]">{String(val ?? '')}</span>
-                    </div>
-                  ))}
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Price</span>
+                  <span className="font-medium text-foreground">${publishResult?.product_price ?? editedPrice}</span>
                 </div>
-              )}
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Status</span>
+                  <Badge className="bg-green-100 text-green-700 border-green-200 hover:bg-green-100">{publishResult?.publication_status || 'Published'}</Badge>
+                </div>
 
-              {/* Files to upload */}
-              {Array.isArray(publishResult?.files_to_upload) && publishResult.files_to_upload.length > 0 && (
-                <div className="mt-2">
-                  <p className="text-xs font-medium text-muted-foreground mb-1">Files</p>
-                  <div className="space-y-1">
-                    {publishResult.files_to_upload.map((f: any, idx: number) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs">
-                        <LuFileCode2 className="w-3 h-3 text-primary" />
-                        <span className="text-foreground">{f?.filename || `File ${idx + 1}`}</span>
-                        {f?.size_estimate && <span className="text-muted-foreground">({f.size_estimate})</span>}
+                {/* Store & Product URLs */}
+                {(publishResult?.store_url || publishResult?.product_url) && (
+                  <div className="space-y-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
+                    {publishResult?.store_url && (
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Store</span>
+                        <a href={publishResult.store_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:underline font-medium text-xs">
+                          {publishResult.store_url} <FiExternalLink className="w-3 h-3" />
+                        </a>
                       </div>
+                    )}
+                    {publishResult?.product_url && (
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Product Link</span>
+                        <a href={publishResult.product_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:underline font-medium text-xs">
+                          View on Payhip <FiExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {publishResult?.confirmation_message && (
+                  <div className="p-3 rounded-lg bg-green-50 border border-green-200 text-sm text-green-700">
+                    {publishResult.confirmation_message}
+                  </div>
+                )}
+
+                {publishResult?.published_at && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Published At</span>
+                    <span className="text-xs text-muted-foreground">{publishResult.published_at}</span>
+                  </div>
+                )}
+
+                {/* Next Steps */}
+                {publishResult?.next_steps && (
+                  <div className="p-3 rounded-lg bg-secondary/50 border border-border">
+                    <p className="text-xs font-semibold text-foreground mb-1 flex items-center gap-1"><FiAlertCircle className="w-3 h-3 text-primary" /> Next Steps</p>
+                    <p className="text-xs text-muted-foreground">{publishResult.next_steps}</p>
+                  </div>
+                )}
+
+                {/* Payhip Payload details */}
+                {publishResult?.payhip_payload && (
+                  <div className="mt-2 p-3 rounded-lg bg-secondary/50 border">
+                    <p className="text-xs font-medium text-muted-foreground mb-2">Payhip API Payload</p>
+                    {Object.entries(publishResult.payhip_payload).map(([key, val]) => {
+                      const displayVal = String(val ?? '')
+                      if (key === 'description' && displayVal.length > 100) {
+                        return (
+                          <div key={key} className="py-0.5">
+                            <span className="text-xs text-muted-foreground capitalize">{key.replace(/_/g, ' ')}</span>
+                            <p className="text-xs font-medium text-foreground mt-0.5 line-clamp-3">{displayVal}</p>
+                          </div>
+                        )
+                      }
+                      return (
+                        <div key={key} className="flex justify-between text-xs py-0.5">
+                          <span className="text-muted-foreground capitalize">{key.replace(/_/g, ' ')}</span>
+                          <span className="font-medium text-foreground truncate max-w-[200px]">{displayVal}</span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+
+                {/* Files to upload */}
+                {Array.isArray(publishResult?.files_to_upload) && publishResult.files_to_upload.length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs font-medium text-muted-foreground mb-1">Files for Upload</p>
+                    <div className="space-y-1">
+                      {publishResult.files_to_upload.map((f: any, idx: number) => (
+                        <div key={idx} className="flex items-center gap-2 text-xs p-2 rounded bg-secondary/30 border">
+                          <LuFileCode2 className="w-3 h-3 text-primary shrink-0" />
+                          <span className="text-foreground flex-1 truncate">{f?.filename || `File ${idx + 1}`}</span>
+                          {f?.filetype && <Badge variant="outline" className="text-[10px] h-4">{f.filetype}</Badge>}
+                          {f?.size_estimate && <span className="text-muted-foreground shrink-0">{f.size_estimate}</span>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Category tags from publisher */}
+                {Array.isArray(publishResult?.category_tags) && publishResult.category_tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    <span className="text-xs text-muted-foreground mr-1 self-center">Tags:</span>
+                    {publishResult.category_tags.map((tag: string, idx: number) => (
+                      <Badge key={idx} variant="outline" className="text-xs">{tag}</Badge>
                     ))}
                   </div>
-                </div>
-              )}
-
-              {/* Category tags from publisher */}
-              {Array.isArray(publishResult?.category_tags) && publishResult.category_tags.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {publishResult.category_tags.map((tag: string, idx: number) => (
-                    <Badge key={idx} variant="outline" className="text-xs">{tag}</Badge>
-                  ))}
-                </div>
-              )}
-            </div>
-            <DialogFooter>
-              <Button onClick={() => { setShowPublishDialog(false); navigate('catalog') }} className="w-full gap-2">
+                )}
+              </div>
+            </ScrollArea>
+            <DialogFooter className="flex-col sm:flex-row gap-2">
+              <a href="https://payhip.com/RULE47" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium border border-input bg-background hover:bg-secondary h-10 px-4 py-2 w-full sm:w-auto">
+                <FiExternalLink className="w-4 h-4" /> Open RULE 47 Store
+              </a>
+              <Button onClick={() => { setShowPublishDialog(false); navigate('catalog') }} className="w-full sm:w-auto gap-2">
                 <LuShoppingBag className="w-4 h-4" /> View Catalog
               </Button>
             </DialogFooter>
